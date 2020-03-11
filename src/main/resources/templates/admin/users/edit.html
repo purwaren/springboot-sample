@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <title>Demo App - Edit User</title>
+    <div th:replace="fragments/header :: header-css"/>
+</head>
+<body>
+
+<div th:replace="fragments/header :: header"/>
+<div class="container">
+
+    <div class="panel panel-default">
+        <div class="panel-heading"><h4>Ubah User</h4></div>
+
+        <div class="panel-body">
+            <form method="post" th:action="@{/admin/users/add}" th:object="${cmd}" class="form-horizontal">
+                <input type="hidden" th:field="*{id}" />
+                <div class="form-group" th:classappend="${#fields.hasErrors('institusiId')} ? has-error">
+                    <label class="col-sm-2 control-label">Institusi Id</label>
+                    <div class="col-sm-10">
+                        <input type="number" th:field="*{institusiId}" />
+                        <span class="help-block" th:errors="*{institusiId}"/>
+                    </div>
+                </div>
+                <div class="form-group" th:classappend="${#fields.hasErrors('username')} ? has-error">
+                    <label class="col-sm-2 control-label">Username</label>
+                    <div class="col-sm-10">
+                        <input type="text" th:field="*{username}" />
+                        <span class="help-block" th:errors="*{username}"/>
+                    </div>
+                </div>
+                <div class="form-group" th:classappend="${#fields.hasErrors('password')} ? has-error">
+                    <label class="col-sm-2 control-label">Password</label>
+                    <div class="col-sm-10">
+                        <input type="text" th:field="*{password}" />
+                        <span class="help-block" th:errors="*{password}"/>
+                    </div>
+                </div>
+                <div class="form-group" th:classappend="${#fields.hasErrors('role')} ? has-error">
+                    <label class="col-sm-2 control-label">Role</label>
+                    <div class="col-sm-10">
+                        <input type="text" th:field="*{role}" />
+                        <span class="help-block" th:errors="*{role}"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-danger">Simpan</button>
+                        <a th:href="@{/admin/users}" class="btn btn-default">Kembali</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+<div th:replace="fragments/footer :: footer"/>
+
+</body>
+</html>
