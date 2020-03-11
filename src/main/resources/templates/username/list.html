@@ -108,10 +108,10 @@
                 { "data": "idInstitusi" },
                 { "data": "id" } //quick hack. Kolom Operasi
             ],
-            // columnDefs: [ {
-            //     "targets": 4, //kolom Operasi tanpa sort
-            //     "orderable": false,
-            // }],
+            columnDefs: [ {
+                "targets": 3, //kolom Operasi tanpa sort
+                "orderable": false,
+            }],
 
             createdRow: function ( row, data, index ) {
 
@@ -120,11 +120,11 @@
                 //     .css("text-align", "center");
 
                 var ubahLink = $('<a />')
-                    .attr('href', [[ @{/user/edit/} ]] + data.id)
+                    .attr('href', [[ @{/username/edit/} ]] + data.id)
                     .text('Ubah');
 
                 var lihatLink = $('<a />')
-                    .attr('href', [[@{/user/view/}]] + data.id)
+                    .attr('href', [[@{/username/view/}]] + data.id)
                     .text('Lihat');
 
                 var operation = $('<div class="unwrap text-center"/>');

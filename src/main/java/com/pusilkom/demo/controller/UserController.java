@@ -2,6 +2,7 @@ package com.pusilkom.demo.controller;
 
 import com.pusilkom.demo.dto.form.cmd.UserCmd;
 import com.pusilkom.demo.dto.form.search.UserSearchForm;
+import com.pusilkom.demo.service.UserService;
 import com.pusilkom.demo.util.DebugUtil;
 import com.pusilkom.demo.util.RestValidatorUtil;
 import com.pusilkom.demo.validator.form.cmd.UserCmdValidator;
@@ -14,6 +15,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 
@@ -25,6 +28,8 @@ public class UserController {
 
     @Autowired
     UserCmdValidator userCmdValidator;
+    @Autowired
+    UserService userService;
 
     @Autowired
     DebugUtil d;
@@ -59,4 +64,20 @@ public class UserController {
         return "username/add";
     }
 
+    @PostMapping("/username/add")
+    public String postUsernameAdd (@Valid UserCmd userCmd, BindingResult result, RedirectAttributes attributes){
+        if (result.hasErrors()) {
+            return "username/add";
+        }
+
+        try {
+            userService.saveCmd(userCmd);
+        } catch (Exception e) {
+            attributes.addFlashAttribute("ERROR", "Gagal tambah user");
+            return "redirect:/username";
+        }
+
+        attributes.addFlashAttribute("SUCCESS", "Berhasil tambah user");
+        return "redirect:/username";
+    }
 }
