@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pusilkom.demo.model.mapper.UserMapper">
+  <resultMap id="UserDetailResultMap" type="com.pusilkom.demo.dto.view.UserDetail">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="id_institusi" jdbcType="BIGINT" property="idInstitusi" />
+    <result column="role" jdbcType="VARCHAR" property="role" />
+  </resultMap>
+  <resultMap id="UserItemResultMap" type="com.pusilkom.demo.dto.table.UserItem">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="id_institusi" jdbcType="BIGINT" property="idInstitusi" />
+    <result column="role" jdbcType="VARCHAR" property="role" />
+  </resultMap>
+
+  <sql id="Main_Query">
+    SELECT * FROM user
+  </sql>
+
+  <sql id="Criteria_Where_Clause">
+    <where>
+
+    </where>
+  </sql>
+
+  <select id="getListUserItemBySearchForm" resultMap="UserItemResultMap" parameterType="map">
+    <include refid="Main_Query"/>
+    <include refid="Criteria_Where_Clause"/>
+
+    OFFSET #{searchForm.criterias.start} LIMIT #{searchForm.criterias.length}
+  </select>
+
+  <select id="getTotalUserItemBySearchForm" resultType="java.lang.Long" parameterType="map">
+    SELECT COUNT(*) FROM
+    (
+    <include refid="Main_Query"/>
+    <include refid="Criteria_Where_Clause"/>
+    ) as foo
+  </select>
+</mapper>

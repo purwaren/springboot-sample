@@ -1,7 +1,12 @@
 package com.pusilkom.demo.controller;
 
+import com.github.dandelion.datatables.core.ajax.DataSet;
+import com.github.dandelion.datatables.core.ajax.DatatablesCriterias;
+import com.github.dandelion.datatables.core.ajax.DatatablesResponse;
 import com.pusilkom.demo.dto.form.cmd.UserCmd;
+import com.pusilkom.demo.dto.form.search.InstitusiSearchForm;
 import com.pusilkom.demo.dto.form.search.UserSearchForm;
+import com.pusilkom.demo.dto.table.UserItem;
 import com.pusilkom.demo.service.UserService;
 import com.pusilkom.demo.util.DebugUtil;
 import com.pusilkom.demo.util.RestValidatorUtil;
@@ -13,11 +18,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 @Controller
@@ -79,5 +83,26 @@ public class UserController {
 
         attributes.addFlashAttribute("SUCCESS", "Berhasil tambah user");
         return "redirect:/username";
+    }
+
+    @RequestMapping(value = "/username/table", method = RequestMethod.POST)
+    @ResponseBody
+    public DatatablesResponse<UserItem> postTableSearch(UserSearchForm searchForm, HttpServletRequest httpServletRequest) {
+
+        DatatablesCriterias criterias = DatatablesCriterias.getFromRequest(httpServletRequest);
+        searchForm.setCriterias(criterias);
+
+        DataSet<UserItem> dataSet = null;
+        try {
+            log.info(">>> searchForm : {}", d.toString(searchForm));
+
+            dataSet = userService.getDataSet(searchForm);
+
+        } catch (Exception e) {
+            log.error("TABLE USER : ", e);
+
+        }
+
+        return DatatablesResponse.build(dataSet, criterias);
     }
 }
