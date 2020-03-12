@@ -29,8 +29,8 @@ public class CustomUserDetailService implements UserDetailsService {
         authorities.add(grantedAuthority);
 
         CustomUser userDetail =  new CustomUser(user.getUsername(), user.getPassword(), authorities);
-        userDetail.setId(user.getId());
-        userDetail.setInstitusiId(user.getInstitusiId());
+        userDetail.id = user.getId();
+        userDetail.institusiId = user.getInstitusiId();
         return userDetail;
     }
 }
