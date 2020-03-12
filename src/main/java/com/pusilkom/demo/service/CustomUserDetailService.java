@@ -1,6 +1,7 @@
 package com.pusilkom.demo.service;
 
 import com.pusilkom.demo.dto.table.UsersItem;
+import com.pusilkom.demo.security.CustomUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -27,8 +28,9 @@ public class CustomUserDetailService implements UserDetailsService {
         Set<GrantedAuthority> authorities = new HashSet<GrantedAuthority>();
         authorities.add(grantedAuthority);
 
-        return new User(user.getUsername(), user.getPassword(), authorities);
+        CustomUser userDetail =  new CustomUser(user.getUsername(), user.getPassword(), authorities);
+        userDetail.setId(user.getId());
+        userDetail.setInstitusiId(user.getInstitusiId());
+        return userDetail;
     }
-
-
 }

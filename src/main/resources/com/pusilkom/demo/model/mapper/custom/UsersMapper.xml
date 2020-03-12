@@ -31,7 +31,7 @@
     <include refid="Main_Query"/>
     <include refid="Criteria_Where_Clause"/>
 
-    OFFSET #{searchForm.criterias.start} LIMIT #{searchForm.criterias.length}
+    LIMIT #{searchForm.criterias.length} OFFSET #{searchForm.criterias.start}
   </select>
 
   <select id="getTotalUserItemBySearchForm" resultType="java.lang.Long" parameterType="map">

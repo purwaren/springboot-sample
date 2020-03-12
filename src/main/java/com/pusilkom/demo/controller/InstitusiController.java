@@ -17,6 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -92,6 +93,7 @@ public class InstitusiController {
         return "redirect:/institusi";
     }
 
+    @PreAuthorize("#id == authentication.principal.institusiId")
     @GetMapping(value = "/institusi/edit/{id}")
     public String editGet(@PathVariable Long id, Model uiModel, RedirectAttributes redirectAttributes) {
         InstitusiCmd cmd = institusiService.getInstitusiCmdByIdInstitusi(id);
@@ -105,6 +107,7 @@ public class InstitusiController {
         return "institusi/edit";
     }
 
+    @PreAuthorize("#id == authentication.principal.id")
     @PostMapping(value = "/institusi/edit/{id}")
     public String postInstitusiEdit(@PathVariable Long id, @Valid InstitusiCmd institusiCmd, BindingResult result, RedirectAttributes attributes) {
         if (result.hasErrors()) {
