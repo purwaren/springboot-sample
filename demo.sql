@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 12, 2020 at 04:07 AM
+-- Generation Time: Mar 12, 2020 at 04:15 AM
 -- Server version: 10.1.44-MariaDB-0+deb9u1
 -- PHP Version: 5.6.40-25+0~20200224.31+debian9~1.gbp0b752b
 
@@ -36,6 +36,13 @@ CREATE TABLE `institusi` (
   `flag_aktif` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `institusi`
+--
+
+INSERT INTO `institusi` (`id`, `nama`, `nama_singkat`, `kode_institusi`, `flag_aktif`) VALUES
+(1, 'BSSN', 'BSSN', 'BSSN', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -49,6 +56,13 @@ CREATE TABLE `users` (
   `password` varchar(128) NOT NULL,
   `role` varchar(32) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `institusi_id`, `username`, `password`, `role`) VALUES
+(1, 1, 'admin', '$2a$10$U4Uf2dtop02o44x9NwY/G.FiJ7YttaTv8RLfv6ZlJyjruliP4xWkm', 'admin');
 
 --
 -- Indexes for dumped tables
@@ -74,13 +88,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `institusi`
 --
 ALTER TABLE `institusi`
-  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
