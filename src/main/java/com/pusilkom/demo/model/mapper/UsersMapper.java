@@ -11,4 +11,5 @@ import java.util.List;
 public interface UsersMapper extends BaseMapper<Users, Long, UsersExample> {
     List<UsersItem> getListUserItemBySearchForm(@Param("searchForm") UsersSearchForm searchForm);
     Long getTotalUserItemBySearchForm(@Param("searchForm") UsersSearchForm searchForm);
+    UsersItem getUsersItemByUsername(@Param("username") String username);
 }

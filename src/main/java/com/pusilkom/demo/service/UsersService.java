@@ -43,4 +43,8 @@ public class UsersService {
         }
         return new UsersCmd(user);
     }
+
+    public UsersItem getUsersItemByUsername(String username) {
+        return usersMapper.getUsersItemByUsername(username);
+    }
 }

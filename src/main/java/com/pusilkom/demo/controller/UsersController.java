@@ -50,6 +50,9 @@ public class UsersController {
             log.error("TABLE USER : ", e);
         }
 
+        //cuma test service
+        log.info(">>> user_fadhlanh : {}", d.toString(usersService.getUsersItemByUsername("fadhlanh")));
+
         return DatatablesResponse.build(dataSet, criterias);
     }
 

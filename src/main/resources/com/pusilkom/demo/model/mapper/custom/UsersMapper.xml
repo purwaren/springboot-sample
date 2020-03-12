@@ -41,4 +41,8 @@
     <include refid="Criteria_Where_Clause"/>
     ) as foo
   </select>
+
+  <select id="getUsersItemByUsername" resultMap="UserItemResultMap">
+    SELECT * FROM users WHERE username = #{username}
+  </select>
 </mapper>
