@@ -7,6 +7,7 @@ import com.pusilkom.demo.dto.table.UsersItem;
 import com.pusilkom.demo.model.Users;
 import com.pusilkom.demo.model.mapper.UsersMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,6 +29,7 @@ public class UsersService {
     @Transactional(readOnly = false)
     public void save(UsersCmd cmd) {
         Users user = cmd.toUser();
+        user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
 
         if (user.getId() == null) {
             usersMapper.insert(user);
